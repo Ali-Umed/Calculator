@@ -7,15 +7,15 @@ export function Button({
 }: {
   text: string;
   color: string;
-  onClick: () => void;
+  onClick: (arg?: string) => void;
   output: string;
   setOutput: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
     <button
-      onClick={() => onClick(text)}
+      onClick={() => onClick()}
       className={`${color} rounded-full ${
-        text === "0" ? "col-span-2 w-32 h-11" : "w-11 h-11"
+        text === "00" ? "col-span-2 w-32 h-11" : "w-11 h-11"
       } row-span-2`}
     >
       {text}
