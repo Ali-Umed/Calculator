@@ -1,14 +1,20 @@
-export default function Button({
+export function Button({
   text,
   color,
+  onClick,
+  output,
+  setOutput,
 }: {
   text: string;
   color: string;
+  onClick: () => void;
+  output: string;
+  setOutput: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  // console.log(`bg-${color}-500 `);
   return (
     <button
-      className={` ${color}  rounded-full   ${
+      onClick={() => onClick(text)}
+      className={`${color} rounded-full ${
         text === "0" ? "col-span-2 w-32 h-11" : "w-11 h-11"
       } row-span-2`}
     >
