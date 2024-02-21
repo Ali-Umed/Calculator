@@ -53,9 +53,6 @@ export default function App() {
   }
 
   function handleOperator(operation: string) {
-    // if () {
-
-    // }
     setNumber((oldNumbers) => [...oldNumbers, parseFloat(operation)]);
     setOperation((oldOperation) => [...oldOperation, operation]);
 
@@ -84,9 +81,7 @@ export default function App() {
     setOutput((output) => output + number);
   }
 
-  function handleEquals() {
-    // Logic for handling equals button
-  }
+  function handleEquals() {}
 
   return (
     <div className="flex justify-center items-center h-screen">
