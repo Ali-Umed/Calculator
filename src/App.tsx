@@ -155,12 +155,13 @@ export default function App() {
             onClick={() => handleColorChange("bg-blue-50", "bg-gray-700")}
           />
           <ColorButton
+            darkMode={darkMode}
             lightColor="bg-green-50"
             darkColor="bg-black"
-            darkMode={darkMode}
             onClick={() => handleColorChange("bg-green-50", "bg-black")}
           />
         </div>
+
         <button
           className="text-gray-700 dark:text-gray-200"
           onClick={toggleDarkMode}
