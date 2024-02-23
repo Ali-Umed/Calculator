@@ -30,15 +30,17 @@ export default function App() {
   }
 
   function handlePercent() {
-    setOutput((prevOutput) => String(parseFloat(prevOutput) / 100));
+    if (!isNaN(parseFloat(output))) {
+      setOutput((prevOutput) => String(parseFloat(prevOutput) / 100));
+    }
   }
 
   function handleOperator(operator: string) {
-    if (output !== "0" && !isNaN(parseFloat(output))) {
+    if (!isNaN(parseFloat(output))) {
       setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
+      setOperation((prevOperations) => [...prevOperations, operator]);
+      setOutput(operator);
     }
-    setOperation((prevOperations) => [...prevOperations, operator]);
-    setOutput(operator);
     console.log(number);
   }
 
@@ -71,7 +73,7 @@ export default function App() {
     //   setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
     // }
 
-    let result = number[0] || lastNumber;
+    let result = number[0] || 0;
     console.log(result, number, operation);
 
     for (let i = 0; i < operation.length; i++) {
