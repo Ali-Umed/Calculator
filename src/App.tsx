@@ -21,7 +21,11 @@ export default function App() {
 
   function handleNegate() {
     setOutput((prevOutput) =>
-      prevOutput.charAt(0) === "-" ? prevOutput.slice(1) : "-" + prevOutput
+      prevOutput.charAt(0) === "-"
+        ? prevOutput.slice(1)
+        : prevOutput.charAt(0) !== "0"
+        ? "-" + prevOutput
+        : prevOutput
     );
   }
 
@@ -61,12 +65,13 @@ export default function App() {
     if (!isNaN(parseFloat(output))) {
       lastNumber = Number(output);
     }
+    console.log(lastNumber);
 
     // if (!isNaN(parseFloat(output))) {
     //   setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
     // }
 
-    let result = number[0] || 0;
+    let result = number[0] || lastNumber;
     console.log(result, number, operation);
 
     for (let i = 0; i < operation.length; i++) {
