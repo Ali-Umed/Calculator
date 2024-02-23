@@ -4,14 +4,10 @@ export function Button({
   text,
   color,
   onClick,
-  output,
-  setOutput,
 }: {
   text: string;
   color: string;
   onClick: (arg?: string) => void;
-  output: string;
-  setOutput: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
     <button
