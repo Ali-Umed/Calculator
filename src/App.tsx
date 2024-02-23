@@ -2,6 +2,99 @@ import React, { useState } from "react";
 import { Button } from "./component/Button";
 
 export default function App() {
+  const [output, setOutput] = useState("0");
+  const [number, setNumber] = useState<number[]>([]);
+  const [operation, setOperation] = useState<string[]>([]);
+
+  function handleClear() {
+    setOutput("0");
+    setNumber([]);
+    setOperation([]);
+  }
+
+  function handleDelete() {
+    setOutput((prevOutput) => {
+      const newOutput = prevOutput.slice(0, -1);
+      return newOutput || "0";
+    });
+  }
+
+  function handleNegate() {
+    setOutput((prevOutput) =>
+      prevOutput.charAt(0) === "-" ? prevOutput.slice(1) : "-" + prevOutput
+    );
+  }
+
+  function handlePercent() {
+    setOutput((prevOutput) => String(parseFloat(prevOutput) / 100));
+  }
+
+  function handleOperator(operator: string) {
+    if (output !== "0" && !isNaN(parseFloat(output))) {
+      setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
+    }
+    setOperation((prevOperations) => [...prevOperations, operator]);
+    setOutput(operator);
+    console.log(number);
+  }
+
+  function handleNumber(numStr: string) {
+    console.log(number);
+
+    if (output === "0" || isNaN(parseFloat(output))) {
+      setOutput(numStr);
+    } else {
+      setOutput((prevOutput) => prevOutput + numStr);
+    }
+  }
+
+  function handleDecimal() {
+    if (!output.includes(".")) {
+      setOutput((prevOutput) => prevOutput + ".");
+    }
+  }
+
+  function handleEquals() {
+    console.log(number);
+
+    let lastNumber = 0;
+    if (!isNaN(parseFloat(output))) {
+      lastNumber = Number(output);
+    }
+
+    // if (!isNaN(parseFloat(output))) {
+    //   setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
+    // }
+
+    let result = number[0] || 0;
+    console.log(result, number, operation);
+
+    for (let i = 0; i < operation.length; i++) {
+      const nextNum = number[i + 1] || lastNumber;
+
+      switch (operation[i]) {
+        case "+":
+          result += nextNum;
+          break;
+        case "-":
+          result -= nextNum;
+          break;
+        case "x":
+          result *= nextNum;
+          break;
+        case "/":
+          result /= nextNum;
+          break;
+        default:
+          break;
+      }
+    }
+
+    setOutput(result.toString());
+    setNumber([]);
+    setOperation([]);
+  }
+
   const calculatorData = [
     { text: "c", color: "bg-gray-300", onClick: () => handleClear() },
     { text: "+/-", color: "bg-gray-300", onClick: () => handleNegate() },
@@ -19,73 +112,15 @@ export default function App() {
     { text: "2", color: "bg-sky-200", onClick: () => handleNumber("2") },
     { text: "3", color: "bg-sky-200", onClick: () => handleNumber("3") },
     { text: "+", color: "bg-orange-400", onClick: () => handleOperator("+") },
-    {
-      text: "d",
-      color: "bg-orange-400",
-      onClick: () => handleDelete(),
-    },
+    { text: "d", color: "bg-orange-400", onClick: () => handleDelete() },
     { text: "0", color: "bg-sky-200", onClick: () => handleNumber("0") },
-    { text: ".", color: "bg-sky-200", onClick: () => handleDecimal(".") },
+    { text: ".", color: "bg-sky-200", onClick: () => handleDecimal() },
     { text: "=", color: "bg-orange-400", onClick: () => handleEquals() },
   ];
 
-  const [output, setOutput] = React.useState("0");
-  const [number, setNumber] = useState<number[]>([]);
-  const [operation, setOperation] = useState<string[]>([]);
-
-  function handleClear() {
-    setOutput("0");
-  }
-
-  function handleDelete() {
-    setOutput((output) => output.slice(1));
-    if (!output) {
-      setOutput("0");
-    }
-  }
-
-  function handleNegate() {
-    setOutput(output.charAt(0) === "-" ? output.slice(1) : "-" + output);
-  }
-
-  function handlePercent() {
-    setOutput(String(parseFloat(output) / 100));
-  }
-
-  function handleOperator(operation: string) {
-    setNumber((oldNumbers) => [...oldNumbers, parseFloat(operation)]);
-    setOperation((oldOperation) => [...oldOperation, operation]);
-
-    if (
-      output.slice(-1) == "+" ||
-      output.slice(-1) == "-" ||
-      output.slice(-1) == "x" ||
-      output.slice(-1) == "/"
-    ) {
-      setOutput((output) => output.slice(0, -1) + operation);
-      return;
-    }
-    setOutput((output) => output + operation);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function handleNumber(number: string) {
-    if (output == "0") {
-      setOutput(number);
-      return;
-    }
-    setOutput((output) => output + number);
-  }
-
-  function handleDecimal(number: string) {
-    setOutput((output) => output + number);
-  }
-
-  function handleEquals() {}
-
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="w-80 h-auto mx-auto bg-gray-100 p-5 rounded-lg shadow-inner shadow-slate-300 ">
+      <div className="w-80 h-auto mx-auto bg-gray-100 p-5 rounded-lg shadow-inner shadow-slate-300">
         <div className="bg-white rounded-lg p-2 mb-6 text-right pr-4">
           {output}
         </div>
