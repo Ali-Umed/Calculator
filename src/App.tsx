@@ -165,7 +165,7 @@ export default function App() {
           className="text-gray-700 dark:text-gray-200"
           onClick={toggleDarkMode}
         >
-          {darkMode ? <FiSun /> : <FiMoon />}
+          {darkMode ? <FiSun /> : <FiMoon color="black" />}
         </button>
       </div>
 
