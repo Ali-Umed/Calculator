@@ -218,7 +218,7 @@ export default function App() {
           {output}
         </div>
 
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-4 place-items-center">
           {calculatorData.map((item, index) => (
             <Button
               text={item.text}
