@@ -184,7 +184,7 @@ export default function App() {
   return (
     <div
       className={`flex flex-col justify-center items-center h-screen ${
-        darkMode ? "bg-[#201e1e]" : "bg-lime-50"
+        darkMode ? "bg-[#201e1e]" : "bg-teal-50"
       }`}
     >
       <div className="flex justify-between w-80 items-center mb-4">
