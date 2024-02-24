@@ -34,7 +34,7 @@ export default function App() {
     } else {
       setTheme({
         bgColor: lightColor,
-        buttonFunctionCOlor: "bg-orange-500",
+        buttonFunctionCOlor: "bg-orange-400",
       });
     }
   };
@@ -198,8 +198,8 @@ export default function App() {
           <ColorButton
             darkMode={darkMode}
             lightColor="bg-green-50"
-            darkColor="bg-black"
-            onClick={() => handleColorChange("bg-green-50", "bg-black")}
+            darkColor="bg-[#20250a]"
+            onClick={() => handleColorChange("bg-green-50", "bg-[#20250a]")}
           />
         </div>
 
