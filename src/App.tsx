@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./component/Button";
 import ColorButton from "./component/ColorButton";
 import { FiSun, FiMoon } from "react-icons/fi";
@@ -7,18 +7,35 @@ export default function App() {
   const [output, setOutput] = useState("0");
   const [number, setNumber] = useState<number[]>([]);
   const [operation, setOperation] = useState<string[]>([]);
-  const [bgColor, setBgColor] = useState("bg-blue-50");
+  const [theme, setTheme] = useState({
+    bgColor: "bg-blue-50",
+    buttonFunctionCOlor: "bg-orange-400",
+  });
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    darkMode ? setBgColor("bg-gray-700") : setBgColor("bg-blue-50");
+    darkMode
+      ? setTheme({
+          bgColor: "bg-gray-700",
+          buttonFunctionCOlor: "bg-blue-400",
+        })
+      : setTheme({
+          bgColor: "bg-blue-50",
+          buttonFunctionCOlor: "bg-orange-400",
+        });
   }, [darkMode]);
 
   const handleColorChange = (lightColor: string, darkColor: string) => {
     if (darkMode) {
-      setBgColor(darkColor);
+      setTheme({
+        bgColor: darkColor,
+        buttonFunctionCOlor: "bg-blue-400",
+      });
     } else {
-      setBgColor(lightColor);
+      setTheme({
+        bgColor: lightColor,
+        buttonFunctionCOlor: "bg-orange-500",
+      });
     }
   };
 
@@ -121,23 +138,47 @@ export default function App() {
     { text: "c", color: "bg-gray-300", onClick: () => handleClear() },
     { text: "+/-", color: "bg-gray-300", onClick: () => handleNegate() },
     { text: "%", color: "bg-gray-300", onClick: () => handlePercent() },
-    { text: "/", color: "bg-orange-400", onClick: () => handleOperator("/") },
+    {
+      text: "/",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleOperator("/"),
+    },
     { text: "7", color: "bg-sky-200", onClick: () => handleNumber("7") },
     { text: "8", color: "bg-sky-200", onClick: () => handleNumber("8") },
     { text: "9", color: "bg-sky-200", onClick: () => handleNumber("9") },
-    { text: "x", color: "bg-orange-400", onClick: () => handleOperator("x") },
+    {
+      text: "x",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleOperator("x"),
+    },
     { text: "4", color: "bg-sky-200", onClick: () => handleNumber("4") },
     { text: "5", color: "bg-sky-200", onClick: () => handleNumber("5") },
     { text: "6", color: "bg-sky-200", onClick: () => handleNumber("6") },
-    { text: "-", color: "bg-orange-400", onClick: () => handleOperator("-") },
+    {
+      text: "-",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleOperator("-"),
+    },
     { text: "1", color: "bg-sky-200", onClick: () => handleNumber("1") },
     { text: "2", color: "bg-sky-200", onClick: () => handleNumber("2") },
     { text: "3", color: "bg-sky-200", onClick: () => handleNumber("3") },
-    { text: "+", color: "bg-orange-400", onClick: () => handleOperator("+") },
-    { text: "d", color: "bg-orange-400", onClick: () => handleDelete() },
+    {
+      text: "+",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleOperator("+"),
+    },
+    {
+      text: "d",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleDelete(),
+    },
     { text: "0", color: "bg-sky-200", onClick: () => handleNumber("0") },
     { text: ".", color: "bg-sky-200", onClick: () => handleDecimal() },
-    { text: "=", color: "bg-orange-400", onClick: () => handleEquals() },
+    {
+      text: "=",
+      color: theme.buttonFunctionCOlor,
+      onClick: () => handleEquals(),
+    },
   ];
 
   return (
@@ -171,7 +212,7 @@ export default function App() {
       </div>
 
       <div
-        className={`w-80 h-auto bg-gray-100 p-5 rounded-lg shadow-inner shadow-slate-300 ${bgColor} `}
+        className={`w-80 h-auto bg-gray-100 p-5 rounded-lg shadow-inner shadow-slate-300 ${theme.bgColor} `}
       >
         <div className="bg-white rounded-lg p-2 mb-6 text-right pr-4">
           {output}
