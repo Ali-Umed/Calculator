@@ -184,7 +184,7 @@ export default function App() {
   return (
     <div
       className={`flex flex-col justify-center items-center h-screen ${
-        darkMode ? "bg-[#201e1e]" : "bg-teal-50"
+        darkMode ? "bg-[#201e1e]" : "bg-lime-50"
       }`}
     >
       <div className="flex justify-between w-80 items-center mb-4">
@@ -212,9 +212,9 @@ export default function App() {
       </div>
 
       <div
-        className={`w-80 h-auto bg-gray-100 p-5 rounded-lg shadow-inner shadow-slate-300 ${theme.bgColor} `}
+        className={`w-80 h-auto p-5 rounded-lg shadow-inner shadow-slate-400 ${theme.bgColor} `}
       >
-        <div className="bg-white rounded-lg p-2 mb-6 text-right pr-4">
+        <div className="bg-white rounded-lg p-2 mb-6 text-right pr-4 border-2 border-gray">
           {output}
         </div>
 
