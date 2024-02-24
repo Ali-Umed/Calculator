@@ -11,7 +11,7 @@ export default function ColorButton({
 }) {
   return (
     <button
-      className={`w-8 h-8 rounded-full mx-2 border-2 border-gray-400 ${
+      className={`w-8 h-8 rounded-full mx-2 border-2 border-gray-400  transition-all duration-500  ${
         darkMode ? darkColor : lightColor
       }`}
       onClick={onClick}
