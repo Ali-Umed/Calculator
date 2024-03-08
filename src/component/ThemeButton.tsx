@@ -1,4 +1,4 @@
-export default function ColorButton({
+export default function ThemeButton({
   lightColor,
   darkColor,
   onClick,

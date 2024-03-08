@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "./component/Button";
-import ColorButton from "./component/ColorButton";
 import { FiSun, FiMoon } from "react-icons/fi";
+import ThemeButton from "./component/ThemeButton";
+import CalculatorOutput from "./component/CalculatorOutput";
 
 export default function App() {
   const [output, setOutput] = useState("0");
@@ -189,19 +190,19 @@ export default function App() {
     >
       <div className="flex justify-between w-80 items-center mb-4">
         <div>
-          <ColorButton
+          <ThemeButton
             lightColor="bg-blue-50"
             darkColor="bg-gray-700"
             darkMode={darkMode}
             onClick={() => handleColorChange("bg-blue-50", "bg-gray-700")}
           />
-          <ColorButton
+          <ThemeButton
             darkMode={darkMode}
             lightColor="bg-lime-50"
             darkColor="bg-[#130909]"
             onClick={() => handleColorChange("bg-lime-50", "bg-[#130909]")}
           />
-          <ColorButton
+          <ThemeButton
             lightColor="bg-emerald-50"
             darkColor="bg-blue-950"
             darkMode={darkMode}
@@ -220,9 +221,7 @@ export default function App() {
       <div
         className={`w-80 h-auto p-5 rounded-lg shadow-inner shadow-slate-400 ${theme.bgColor} transition-all duration-500 `}
       >
-        <div className="bg-white rounded-lg p-2 mb-6 text-right pr-4 border-2 border-gray">
-          {output}
-        </div>
+        <CalculatorOutput output={output} />
 
         <div className="grid grid-cols-4 gap-4 place-items-center">
           {calculatorData.map((item, index) => (
