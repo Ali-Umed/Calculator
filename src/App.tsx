@@ -183,7 +183,7 @@ export default function App() {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center h-screen transition-all duration-500  ${
+      className={`flex flex-col justify-center items-center h-screen transition-all duration-1000  ${
         darkMode ? "bg-[#201e1e]" : "bg-teal-50"
       }`}
     >
@@ -200,6 +200,12 @@ export default function App() {
             lightColor="bg-lime-50"
             darkColor="bg-[#130909]"
             onClick={() => handleColorChange("bg-lime-50", "bg-[#130909]")}
+          />
+          <ColorButton
+            lightColor="bg-emerald-50"
+            darkColor="bg-blue-950"
+            darkMode={darkMode}
+            onClick={() => handleColorChange("bg-emerald-50", "bg-blue-950")}
           />
         </div>
 
