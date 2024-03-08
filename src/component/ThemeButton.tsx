@@ -11,9 +11,9 @@ export default function ThemeButton({
 }) {
   return (
     <button
-      className={`w-8 h-8 rounded-full mx-2 border-2 border-gray-400  transition-all duration-500  ${
+      className={`w-8 h-8 rounded-full mx-2 border-2 border-gray-300 transition-all duration-300 ${
         darkMode ? darkColor : lightColor
-      }`}
+      } hover:opacity-70 focus:outline-none`}
       onClick={onClick}
     ></button>
   );

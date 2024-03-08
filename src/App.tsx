@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Button } from "./component/Button";
+import React, { useEffect, useState } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 import ThemeButton from "./component/ThemeButton";
 import CalculatorOutput from "./component/CalculatorOutput";
+import { Button } from "./component/Button";
 
 export default function App() {
   const [output, setOutput] = useState("0");
@@ -10,54 +10,42 @@ export default function App() {
   const [operation, setOperation] = useState<string[]>([]);
   const [theme, setTheme] = useState({
     bgColor: "bg-blue-50",
-    buttonFunctionCOlor: "bg-orange-400",
+    buttonFunctionColor: "bg-orange-400",
   });
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    darkMode
-      ? setTheme({
-          bgColor: "bg-gray-700",
-          buttonFunctionCOlor: "bg-blue-400",
-        })
-      : setTheme({
-          bgColor: "bg-blue-50",
-          buttonFunctionCOlor: "bg-orange-400",
-        });
+    const newTheme = darkMode
+      ? { bgColor: "bg-gray-700", buttonFunctionColor: "bg-blue-400" }
+      : { bgColor: "bg-blue-50", buttonFunctionColor: "bg-orange-400" };
+    setTheme(newTheme);
   }, [darkMode]);
 
   const handleColorChange = (lightColor: string, darkColor: string) => {
-    if (darkMode) {
-      setTheme({
-        bgColor: darkColor,
-        buttonFunctionCOlor: "bg-blue-400",
-      });
-    } else {
-      setTheme({
-        bgColor: lightColor,
-        buttonFunctionCOlor: "bg-orange-400",
-      });
-    }
+    const newTheme = darkMode
+      ? { bgColor: darkColor, buttonFunctionColor: "bg-blue-400" }
+      : { bgColor: lightColor, buttonFunctionColor: "bg-orange-400" };
+    setTheme(newTheme);
   };
 
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
   };
 
-  function handleClear() {
+  const handleClear = () => {
     setOutput("0");
     setNumber([]);
     setOperation([]);
-  }
+  };
 
-  function handleDelete() {
+  const handleDelete = () => {
     setOutput((prevOutput) => {
       const newOutput = prevOutput.slice(0, -1);
       return newOutput || "0";
     });
-  }
+  };
 
-  function handleNegate() {
+  const handleNegate = () => {
     setOutput((prevOutput) =>
       prevOutput.charAt(0) === "-"
         ? prevOutput.slice(1)
@@ -65,53 +53,45 @@ export default function App() {
         ? "-" + prevOutput
         : prevOutput
     );
-  }
+  };
 
-  function handlePercent() {
+  const handlePercent = () => {
     if (!isNaN(parseFloat(output))) {
       setOutput((prevOutput) => String(parseFloat(prevOutput) / 100));
     }
-  }
+  };
 
-  function handleOperator(operator: string) {
+  const handleOperator = (operator: string) => {
     if (!isNaN(parseFloat(output))) {
       setNumber((prevNumbers) => [...prevNumbers, parseFloat(output)]);
       setOperation((prevOperations) => [...prevOperations, operator]);
       setOutput(operator);
     }
-    console.log(number);
-  }
+  };
 
-  function handleNumber(numStr: string) {
-    console.log(number);
-
+  const handleNumber = (numStr: string) => {
     if (output === "0" || isNaN(parseFloat(output))) {
       setOutput(numStr);
     } else {
       setOutput((prevOutput) => prevOutput + numStr);
     }
-  }
+  };
 
-  function handleDecimal() {
+  const handleDecimal = () => {
     if (!output.includes(".")) {
       setOutput((prevOutput) => prevOutput + ".");
     }
-  }
+  };
 
-  function handleEquals() {
-    console.log(number);
-
+  const handleEquals = () => {
     let lastNumber = 0;
     if (!isNaN(parseFloat(output))) {
       lastNumber = Number(output);
     }
-    console.log(lastNumber);
 
     let result = number[0] || 0;
-
     for (let i = 0; i < operation.length; i++) {
       const nextNum = number[i + 1] || lastNumber;
-
       switch (operation[i]) {
         case "+":
           result += nextNum;
@@ -133,15 +113,15 @@ export default function App() {
     setOutput(result.toString());
     setNumber([]);
     setOperation([]);
-  }
+  };
 
   const calculatorData = [
-    { text: "c", color: "bg-gray-300", onClick: () => handleClear() },
-    { text: "+/-", color: "bg-gray-300", onClick: () => handleNegate() },
-    { text: "%", color: "bg-gray-300", onClick: () => handlePercent() },
+    { text: "C", color: "bg-gray-300", onClick: handleClear },
+    { text: "+/-", color: "bg-gray-300", onClick: handleNegate },
+    { text: "%", color: "bg-gray-300", onClick: handlePercent },
     {
       text: "/",
-      color: theme.buttonFunctionCOlor,
+      color: theme.buttonFunctionColor,
       onClick: () => handleOperator("/"),
     },
     { text: "7", color: "bg-sky-200", onClick: () => handleNumber("7") },
@@ -149,7 +129,7 @@ export default function App() {
     { text: "9", color: "bg-sky-200", onClick: () => handleNumber("9") },
     {
       text: "x",
-      color: theme.buttonFunctionCOlor,
+      color: theme.buttonFunctionColor,
       onClick: () => handleOperator("x"),
     },
     { text: "4", color: "bg-sky-200", onClick: () => handleNumber("4") },
@@ -157,7 +137,7 @@ export default function App() {
     { text: "6", color: "bg-sky-200", onClick: () => handleNumber("6") },
     {
       text: "-",
-      color: theme.buttonFunctionCOlor,
+      color: theme.buttonFunctionColor,
       onClick: () => handleOperator("-"),
     },
     { text: "1", color: "bg-sky-200", onClick: () => handleNumber("1") },
@@ -165,26 +145,18 @@ export default function App() {
     { text: "3", color: "bg-sky-200", onClick: () => handleNumber("3") },
     {
       text: "+",
-      color: theme.buttonFunctionCOlor,
+      color: theme.buttonFunctionColor,
       onClick: () => handleOperator("+"),
     },
-    {
-      text: "d",
-      color: theme.buttonFunctionCOlor,
-      onClick: () => handleDelete(),
-    },
+    { text: "⌫", color: theme.buttonFunctionColor, onClick: handleDelete },
     { text: "0", color: "bg-sky-200", onClick: () => handleNumber("0") },
-    { text: ".", color: "bg-sky-200", onClick: () => handleDecimal() },
-    {
-      text: "=",
-      color: theme.buttonFunctionCOlor,
-      onClick: () => handleEquals(),
-    },
+    { text: ".", color: "bg-sky-200", onClick: handleDecimal },
+    { text: "=", color: theme.buttonFunctionColor, onClick: handleEquals },
   ];
 
   return (
     <div
-      className={`flex flex-col justify-center items-center h-screen transition-all duration-1000  ${
+      className={`flex flex-col justify-center items-center h-screen transition-all duration-1000 ${
         darkMode ? "bg-[#201e1e]" : "bg-teal-50"
       }`}
     >
@@ -209,7 +181,6 @@ export default function App() {
             onClick={() => handleColorChange("bg-emerald-50", "bg-blue-950")}
           />
         </div>
-
         <button
           className="text-gray-700 dark:text-gray-200"
           onClick={toggleDarkMode}
@@ -217,12 +188,10 @@ export default function App() {
           {darkMode ? <FiSun /> : <FiMoon color="black" />}
         </button>
       </div>
-
       <div
-        className={`w-80 h-auto p-5 rounded-lg shadow-inner shadow-slate-400 ${theme.bgColor} transition-all duration-500 `}
+        className={`w-80 h-auto p-5 rounded-lg shadow-md ${theme.bgColor} transition-all duration-500 `}
       >
         <CalculatorOutput output={output} />
-
         <div className="grid grid-cols-4 gap-4 place-items-center">
           {calculatorData.map((item, index) => (
             <Button
