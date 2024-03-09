@@ -6,7 +6,8 @@ This is a simple calculator app built with React.
 
 - Basic arithmetic operations: addition, subtraction, multiplication, division
 - Clear, delete, and percentage functionalities
-- Dark mode and theme customization options
+- Dark mode and light mode
+- 6 theme customization options 3 for darkMode 3 for lightMode
 
 ## Demo
 
@@ -20,8 +21,8 @@ This is a simple calculator app built with React.
 
 ## Screenshots
 
-![Screenshot 1](add-screenshot-url-here)
-![Screenshot 2](add-screenshot-url-here)
+![Screenshot 1](./src/img/darkMode.png)
+![Screenshot 2](./src/img/lightMode.png)
 
 ## Getting Started
 
@@ -32,7 +33,3 @@ This is a simple calculator app built with React.
 ## Contributing
 
 Contributions are welcome! Feel free to submit pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
