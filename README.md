@@ -21,8 +21,8 @@ This is a simple calculator app built with React.
 
 ## Screenshots
 
-![Screenshot 1](./src/img/darkMode.png)
-![Screenshot 2](./src/img/lightMode.png)
+![Screenshot 1](./src/img/darkMode1.png)
+![Screenshot 2](./src/img/lightMode1.png)
 
 ## Getting Started
 
