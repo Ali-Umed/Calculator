@@ -26,7 +26,7 @@ export default function App() {
     };
 
     const systemColorSchemeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: light)"
+      "(prefers-color-scheme: dark)"
     );
     systemColorSchemeMediaQuery.addEventListener(
       "change",
@@ -96,6 +96,7 @@ export default function App() {
     }
   };
 
+  // that is mean if output is  0 or  operation just set number to output
   const handleNumber = (numStr: string) => {
     if (output === "0" || isNaN(parseFloat(output))) {
       setOutput(numStr);
@@ -116,7 +117,7 @@ export default function App() {
       lastNumber = Number(output);
     }
 
-    let result = number[0] || 0;
+    let result = 0 || number[0];
     for (let i = 0; i < operation.length; i++) {
       const nextNum = number[i + 1] || lastNumber;
       switch (operation[i]) {
