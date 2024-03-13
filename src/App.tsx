@@ -15,6 +15,33 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
+    const updateDayMode = () => {
+      setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    };
+
+    updateDayMode();
+
+    const handleSystemColorSchemeChange = () => {
+      updateDayMode();
+    };
+
+    const systemColorSchemeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: light)"
+    );
+    systemColorSchemeMediaQuery.addEventListener(
+      "change",
+      handleSystemColorSchemeChange
+    );
+
+    return () => {
+      systemColorSchemeMediaQuery.removeEventListener(
+        "change",
+        handleSystemColorSchemeChange
+      );
+    };
+  }, []); // Run this effect only once on component mount
+
+  useEffect(() => {
     const newTheme = darkMode
       ? { bgColor: "bg-gray-700", buttonFunctionColor: "bg-blue-400" }
       : { bgColor: "bg-blue-50", buttonFunctionColor: "bg-orange-400" };
