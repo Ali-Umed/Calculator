@@ -117,9 +117,10 @@ export default function App() {
       lastNumber = Number(output);
     }
 
-    let result = 0 || number[0];
+    let result = lastNumber || number[0];
     for (let i = 0; i < operation.length; i++) {
-      const nextNum = number[i + 1] || lastNumber;
+      const nextNum = lastNumber || number[i + 1];
+
       switch (operation[i]) {
         case "+":
           result += nextNum;
