@@ -31,8 +31,8 @@ A modern, theme-customizable calculator built with **React**, **TypeScript**, an
 
 ## 🖼️ Screenshots
 
-![Dark Mode Theme](../../img/darkMode1.png)  
-![Light Mode Theme](../../img/lightMode1.png)
+![Dark Mode Theme](./src/img/darkMode1.png)  
+![Light Mode Theme](./src/img/lightMode1.png)
 
 ---
 
