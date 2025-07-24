@@ -1,35 +1,50 @@
-# Calculator App
+# 🧮 Calculator App
 
-This is a simple calculator app built with React.
+A modern, theme-customizable calculator built with **React**, **TypeScript**, and **Tailwind CSS**. Designed with simplicity and UI/UX in mind.
 
-## Features
+---
 
-- Basic arithmetic operations: addition, subtraction, multiplication, division
-- Clear, delete, and percentage functionalities
-- Dark mode and light mode
-- 6 theme customization options 3 for darkMode 3 for lightMode
+## ✨ Features
 
-## Demo
+- Perform basic operations: **Add**, **Subtract**, **Multiply**, **Divide**
+- **Percentage**, **Clear**, and **Delete** functionalities
+- **Dark mode** and **Light mode** support
+- **6 themes**:
+  - 3 for Dark Mode
+  - 3 for Light Mode
 
-[Live Demo](https://calculator-phi-black.vercel.app/)
+---
 
-## Technologies Used
+## 🚀 Live Demo
 
-- React
-- TypeScript
-- Tailwind CSS
+👉 [Try it here](https://calculator-phi-black.vercel.app/)
 
-## Screenshots
+---
 
-![Screenshot 1](./src/img/darkMode1.png)
-![Screenshot 2](./src/img/lightMode1.png)
+## 🛠️ Tech Stack
 
-## Getting Started
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
 
-1. Clone the repository
-2. Install dependencies: `npm install or npm i`
-3. Run the app: `npm run dev`
+---
 
-## Contributing
+## 🖼️ Screenshots
 
-Contributions are welcome! Feel free to submit pull requests.
+![Dark Mode Theme](../../img/darkMode1.png)  
+![Light Mode Theme](../../img/lightMode1.png)
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/calculator-app.git
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
