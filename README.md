@@ -27,12 +27,6 @@ A modern, theme-customizable calculator built with **React**, **TypeScript**, an
 - **TypeScript**
 - **Tailwind CSS**
 
----
-
-## 🖼️ Screenshots
-
-![Dark Mode Theme](./src/img/darkMode1.png)  
-![Light Mode Theme](./src/img/lightMode1.png)
 
 ---
 
