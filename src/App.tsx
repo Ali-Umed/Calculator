@@ -1,62 +1,39 @@
 import { useEffect, useState } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
-import ThemeButton from "./component/ThemeButton";
 import CalculatorOutput from "./component/CalculatorOutput";
-import { Button } from "./component/Button";
+import { Button, AppTheme } from "./component/Button";
+
+type ButtonVariant = "number" | "operator" | "function" | "equals";
+
+interface CalculatorButton {
+  text: string;
+  variant: ButtonVariant;
+  onClick: () => void;
+  className?: string;
+}
 
 export default function App() {
   const [output, setOutput] = useState("0");
   const [number, setNumber] = useState<number[]>([]);
   const [operation, setOperation] = useState<string[]>([]);
-  const [theme, setTheme] = useState({
-    bgColor: "bg-blue-50",
-    buttonFunctionColor: "bg-orange-400",
-  });
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true); // Default to dark mode
+  const [theme, setTheme] = useState<AppTheme>("orange");
 
+  // Initialize dark mode on mount
   useEffect(() => {
-    const updateDayMode = () => {
-      setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    };
-
-    updateDayMode();
-
-    const handleSystemColorSchemeChange = () => {
-      updateDayMode();
-    };
-
-    const systemColorSchemeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    );
-    systemColorSchemeMediaQuery.addEventListener(
-      "change",
-      handleSystemColorSchemeChange
-    );
-
-    return () => {
-      systemColorSchemeMediaQuery.removeEventListener(
-        "change",
-        handleSystemColorSchemeChange
-      );
-    };
-  }, []); // Run this effect only once on component mount
-
-  useEffect(() => {
-    const newTheme = darkMode
-      ? { bgColor: "bg-gray-700", buttonFunctionColor: "bg-blue-400" }
-      : { bgColor: "bg-blue-50", buttonFunctionColor: "bg-orange-400" };
-    setTheme(newTheme);
-  }, [darkMode]);
-
-  const handleColorChange = (lightColor: string, darkColor: string) => {
-    const newTheme = darkMode
-      ? { bgColor: darkColor, buttonFunctionColor: "bg-blue-400" }
-      : { bgColor: lightColor, buttonFunctionColor: "bg-orange-400" };
-    setTheme(newTheme);
-  };
+    document.documentElement.classList.add('dark');
+  }, []);
 
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
+    setDarkMode((prev) => {
+      const newMode = !prev;
+      if (newMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      return newMode;
+    });
   };
 
   const handleClear = () => {
@@ -96,7 +73,6 @@ export default function App() {
     }
   };
 
-  // that is mean if output is  0 or  operation just set number to output
   const handleNumber = (numStr: string) => {
     if (output === "0" || isNaN(parseFloat(output))) {
       setOutput(numStr);
@@ -145,93 +121,98 @@ export default function App() {
     setOperation([]);
   };
 
-  const calculatorData = [
-    { text: "C", color: "bg-gray-300", onClick: handleClear },
-    { text: "+/-", color: "bg-gray-300", onClick: handleNegate },
-    { text: "%", color: "bg-gray-300", onClick: handlePercent },
-    {
-      text: "/",
-      color: theme.buttonFunctionColor,
-      onClick: () => handleOperator("/"),
-    },
-    { text: "7", color: "bg-sky-200", onClick: () => handleNumber("7") },
-    { text: "8", color: "bg-sky-200", onClick: () => handleNumber("8") },
-    { text: "9", color: "bg-sky-200", onClick: () => handleNumber("9") },
-    {
-      text: "x",
-      color: theme.buttonFunctionColor,
-      onClick: () => handleOperator("x"),
-    },
-    { text: "4", color: "bg-sky-200", onClick: () => handleNumber("4") },
-    { text: "5", color: "bg-sky-200", onClick: () => handleNumber("5") },
-    { text: "6", color: "bg-sky-200", onClick: () => handleNumber("6") },
-    {
-      text: "-",
-      color: theme.buttonFunctionColor,
-      onClick: () => handleOperator("-"),
-    },
-    { text: "1", color: "bg-sky-200", onClick: () => handleNumber("1") },
-    { text: "2", color: "bg-sky-200", onClick: () => handleNumber("2") },
-    { text: "3", color: "bg-sky-200", onClick: () => handleNumber("3") },
-    {
-      text: "+",
-      color: theme.buttonFunctionColor,
-      onClick: () => handleOperator("+"),
-    },
-    { text: "⌫", color: theme.buttonFunctionColor, onClick: handleDelete },
-    { text: "0", color: "bg-sky-200", onClick: () => handleNumber("0") },
-    { text: ".", color: "bg-sky-200", onClick: handleDecimal },
-    { text: "=", color: theme.buttonFunctionColor, onClick: handleEquals },
+  const calculatorData: CalculatorButton[] = [
+    { text: "C", variant: "function", onClick: handleClear },
+    { text: "+/-", variant: "function", onClick: handleNegate },
+    { text: "%", variant: "function", onClick: handlePercent },
+    { text: "/", variant: "operator", onClick: () => handleOperator("/") },
+    { text: "7", variant: "number", onClick: () => handleNumber("7") },
+    { text: "8", variant: "number", onClick: () => handleNumber("8") },
+    { text: "9", variant: "number", onClick: () => handleNumber("9") },
+    { text: "x", variant: "operator", onClick: () => handleOperator("x") },
+    { text: "4", variant: "number", onClick: () => handleNumber("4") },
+    { text: "5", variant: "number", onClick: () => handleNumber("5") },
+    { text: "6", variant: "number", onClick: () => handleNumber("6") },
+    { text: "-", variant: "operator", onClick: () => handleOperator("-") },
+    { text: "1", variant: "number", onClick: () => handleNumber("1") },
+    { text: "2", variant: "number", onClick: () => handleNumber("2") },
+    { text: "3", variant: "number", onClick: () => handleNumber("3") },
+    { text: "+", variant: "operator", onClick: () => handleOperator("+") },
+    { text: "⌫", variant: "function", onClick: handleDelete },
+    { text: "0", variant: "number", onClick: () => handleNumber("0") },
+    { text: ".", variant: "number", onClick: handleDecimal },
+    { text: "=", variant: "equals", onClick: handleEquals },
   ];
 
+  const getPageBgColor = () => {
+    if (darkMode) return "bg-gray-900";
+    switch (theme) {
+      case "blue": return "bg-blue-100";
+      case "violet": return "bg-violet-100";
+      case "orange":
+      default: return "bg-orange-100";
+    }
+  };
+
+  const getCalculatorBgColor = () => {
+    if (darkMode) return "bg-[#1a1a1a] border-gray-800";
+    switch (theme) {
+      case "blue": return "bg-blue-50 border-blue-100";
+      case "violet": return "bg-violet-50 border-violet-100";
+      case "orange":
+      default: return "bg-orange-50 border-orange-100";
+    }
+  };
+
   return (
-    <div
-      className={`flex flex-col justify-center items-center h-screen transition-all duration-1000 ${
-        darkMode ? "bg-[#201e1e]" : "bg-teal-50"
-      }`}
-    >
-      <div className="flex justify-between w-80 items-center mb-4">
-        <div>
-          <ThemeButton
-            lightColor="bg-blue-50"
-            darkColor="bg-gray-700"
-            darkMode={darkMode}
-            onClick={() => handleColorChange("bg-blue-50", "bg-gray-700")}
+    <div className={`min-h-screen flex flex-col justify-center items-center transition-colors duration-500 ${getPageBgColor()}`}>
+      
+      <div className="w-full max-w-[320px] flex justify-between items-center mb-6 px-2">
+        <div className="flex gap-2">
+          <button 
+            onClick={() => setTheme("orange")}
+            className={`w-6 h-6 rounded-full bg-orange-500 border-2 ${theme === 'orange' ? 'border-gray-600 dark:border-white scale-110' : 'border-transparent'} transition-all shadow-sm`}
+            aria-label="Orange Theme"
           />
-          <ThemeButton
-            darkMode={darkMode}
-            lightColor="bg-lime-50"
-            darkColor="bg-[#130909]"
-            onClick={() => handleColorChange("bg-lime-50", "bg-[#130909]")}
+          <button 
+            onClick={() => setTheme("blue")}
+            className={`w-6 h-6 rounded-full bg-blue-500 border-2 ${theme === 'blue' ? 'border-gray-600 dark:border-white scale-110' : 'border-transparent'} transition-all shadow-sm`}
+            aria-label="Blue Theme"
           />
-          <ThemeButton
-            lightColor="bg-emerald-50"
-            darkColor="bg-blue-950"
-            darkMode={darkMode}
-            onClick={() => handleColorChange("bg-emerald-50", "bg-blue-950")}
+          <button 
+            onClick={() => setTheme("violet")}
+            className={`w-6 h-6 rounded-full bg-violet-500 border-2 ${theme === 'violet' ? 'border-gray-600 dark:border-white scale-110' : 'border-transparent'} transition-all shadow-sm`}
+            aria-label="Violet Theme"
           />
         </div>
         <button
-          className="text-gray-700 dark:text-gray-200"
           onClick={toggleDarkMode}
+          className="p-2 rounded-full bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 transition-colors backdrop-blur-sm shadow-sm"
+          aria-label="Toggle Dark Mode"
         >
-          {darkMode ? <FiSun /> : <FiMoon color="black" />}
+          {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
         </button>
       </div>
-      <div
-        className={`w-80 h-auto p-5 rounded-lg shadow-md ${theme.bgColor} transition-all duration-500 `}
-      >
+
+      <div className={`w-full max-w-[320px] p-6 rounded-3xl shadow-xl dark:shadow-2xl dark:shadow-black/50 transition-all duration-500 border ${getCalculatorBgColor()}`}>
         <CalculatorOutput output={output} />
-        <div className="grid grid-cols-4 gap-4 place-items-center">
+        
+        <div className="grid grid-cols-4 gap-3">
           {calculatorData.map((item, index) => (
             <Button
-              text={item.text}
-              color={item.color}
               key={index}
+              text={item.text}
+              variant={item.variant}
+              theme={theme}
               onClick={item.onClick}
+              className={item.className}
             />
           ))}
         </div>
+      </div>
+      
+      <div className="mt-8 text-sm text-gray-500 dark:text-gray-500 font-medium">
+        Simple & Clean
       </div>
     </div>
   );

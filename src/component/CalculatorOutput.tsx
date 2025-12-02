@@ -1,9 +1,13 @@
 export default function CalculatorOutput({ output }: { output: string }) {
+  const displayValue = output === "NaN" ? "Error" : output;
+
   return (
-    <div className="bg-white rounded-lg p-4 mb-6 text-right border border-gray-300">
-      <p className="text-xl font-bold">
-        {output == "NaN" ? "undifind" : output}
-      </p>
+    <div className="w-full mb-6 px-2">
+      <div className="text-right">
+        <span className="text-4xl sm:text-5xl font-bold text-black dark:text-white tracking-tight break-all">
+          {displayValue}
+        </span>
+      </div>
     </div>
   );
 }

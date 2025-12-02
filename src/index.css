@@ -4,4 +4,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Your custom styles here */
+body {
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
