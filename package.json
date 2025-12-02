@@ -4,6 +4,9 @@
   "description": "A simple calculator app built with React.",
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
